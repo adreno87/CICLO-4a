@@ -1,0 +1,2 @@
+class Partido():
+  pass
