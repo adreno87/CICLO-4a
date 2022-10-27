@@ -1,0 +1,2 @@
+class RepositorioMesa():
+    pass 

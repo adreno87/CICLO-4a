@@ -1,5 +1,5 @@
 from modelos.mesa import Mesa
-from repositorios.repositorioMesa import RepositorioMesa
+from repositorios.RepositorioMesa import RepositorioMesa
 
 
 class ControladorMesa():
