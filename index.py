@@ -35,7 +35,7 @@ def create_candidato():
 @app.route("/candidatos/<string:id>", methods=["PUT"])
 def modificarCandidato(id):
     data = request.get_json()
-    json = _controlador_estudiante.updateEstudiante(id,data)
+    json = ControladorCandidato.updateCandidato(id,data)
     return jsonify(json)
 
 ###############################################

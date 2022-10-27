@@ -1,3 +1,3 @@
-from modelos.abstractModelo import AbstractModelo
+from .AbstractModelo import AbstractModelo
 class Mesa(AbstractModelo):
   pass
