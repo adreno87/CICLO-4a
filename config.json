@@ -1,4 +1,8 @@
 {
     "url-backend": "127.0.0.1",
-    "port": 9999
+    "port": 9999,
+    "database-conection": "mongodb+srv://adreno87:IBOWsBMr25SByBLk@ciclo4a.gr4ncxd.mongodb.net/?retryWrites=true&w=majority"
+    ,
+    "database-name": "app-votaciones"
+
 }

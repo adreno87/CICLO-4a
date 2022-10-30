@@ -5,6 +5,7 @@ from flask_cors import CORS
 import json
 from waitress import serve
 from controladores.controladorCandidato import ControladorCandidato
+from controladores.controladorPartido import PartidoControlador
 
 app = Flask(__name__) #instancia de la clase Flask
 cors = CORS(app)
@@ -13,6 +14,8 @@ cors = CORS(app)
 
 #PATH CANDIDATOS -listar
 _controlador_candidato = ControladorCandidato()
+ControladorPartido = PartidoControlador()
+
 @app.route("/candidatos", methods=["GET"])
 def get_candidatos():
     datos = _controlador_candidato.getCandidato()
@@ -38,12 +41,52 @@ def modificarCandidato(id):
     json = ControladorCandidato.updateCandidato(id,data)
     return jsonify(json)
 
+
+"""LISTAR PARTIDOS (GET)"""
+@app.route("/partido",methods=['GET'])
+def getPartidos():
+    json=ControladorPartido.getPartido()
+    return jsonify(json)
+
+"""CREAR UN PARTIDO - (POST)"""
+@app.route("/partido",methods=['POST'])
+def createPartido():
+    dataEntrada = request.get_json()
+    dataSalida=ControladorPartido.createPartido(dataEntrada)
+    return jsonify(dataSalida)
+
+"""ELIMINAAR UN PARTIDO - (DELETE)"""
+@app.route("/partido/<string:id>",methods=['DELETE'])
+def deletePartido(id):
+    json=ControladorPartido.deletePartido(id)
+    return jsonify(json)
+
+"""ACTUALIZAR UN PARTIDO - (PUT)"""
+@app.route("/partido/<string:id>", methods=['PUT'])
+def actualizarPartido(id):
+    data = request.get_json()
+    json = ControladorPartido.updatePartido(id, data)
+    return jsonify(json)
+
+
+
+
+
+
 ###############################################
 """CARGAR UN ARCHIVO DE CONFIGURACIÓN"""
 def loadFileConfig():
     with open('config.json') as f:
         data = json.load(f)
     return data
+
+
+
+
+
+
+
+    
 
 """INICIANDO LA APLICACIÓN"""
 if __name__=='__main__':
