@@ -6,6 +6,7 @@ import json
 from waitress import serve
 from controladores.controladorCandidato import ControladorCandidato
 from controladores.controladorPartido import PartidoControlador
+from controladores.controladorMesa import ControladorMesa
 
 app = Flask(__name__) #instancia de la clase Flask
 cors = CORS(app)
@@ -66,6 +67,40 @@ def deletePartido(id):
 def actualizarPartido(id):
     data = request.get_json()
     json = ControladorPartido.updatePartido(id, data)
+    return jsonify(json)
+
+    #PATH MESA -Actualizar
+@app.route("/mesas/<string:id>", methods=["PUT"])
+def modificarMesa(id):
+    data = request.get_json()
+    json = ControladorMesa.updateMesa(id,data)
+    return jsonify(json)
+
+
+"""LISTAR MESA (GET)"""
+@app.route("/mesa",methods=['GET'])
+def getPartidos():
+    json=ControladorMesa.getMesa()
+    return jsonify(json)
+
+"""CREAR UNA MESA - (POST)"""
+@app.route("/mesa",methods=['POST'])
+def createMesa():
+    dataEntrada = request.get_json()
+    dataSalida=ControladorMesa.createMesa(dataEntrada)
+    return jsonify(dataSalida)
+
+"""ELIMINAAR UNA MESA - (DELETE)"""
+@app.route("/mesa/<string:id>",methods=['DELETE'])
+def deleteMesa(id):
+    json=ControladorMesa.deleteMesa(id)
+    return jsonify(json)
+
+"""ACTUALIZAR UNA MESA - (PUT)"""
+@app.route("/mesa/<string:id>", methods=['PUT'])
+def actualizarMesa(id):
+    data = request.get_json()
+    json = ControladorMesa.updateMesa(id, data)
     return jsonify(json)
 
 
