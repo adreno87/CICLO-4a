@@ -17,25 +17,25 @@ class CandidatoControlador():
         candidato_actual.partido = partido_actual
         return self.repo_candidato.save(candidato_actual)    
         
-    def get(self):
+    def getCandidato(self):
         candidatos = self.repo_candidato.findAll()
         return candidatos
     
-    def create(self, datosCandidato):
+    def createCandidato(self, datosCandidato):
         candidato = Candidato(datosCandidato)
         datos_salida = self.repo_candidato.save(candidato)
         return datos_salida
     
-    def update(self, id, datosCandidato):
+    def updateCandidato(self, id, datosCandidato):
         buscar_candiadto = self.repo_candidato.findById(id)
         candidato = Candidato(buscar_candiadto)
-        candidato.resolution_number = datosCandidato["resolution_number"]
+        candidato.numero_resolucion = datosCandidato["numero_resolucion"]
         candidato.cedula = datosCandidato["cedula"]
-        candidato.name = datosCandidato["name"]
+        candidato.nombre = datosCandidato["nombre"]
         self.repo_candidato.save(candidato)
         return candidato.__dict__
         
-    def delete(self, id):
+    def deleteCandidato(self, id):
         print("candidato " + id + " eliminado")
         candidato = self.repo_candidato.delete(id) 
         return candidato     

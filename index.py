@@ -11,44 +11,42 @@ from controladores.controladorMesa import MesaControlador
 app = Flask(__name__) 
 cors = CORS(app)
 
+ControladorCandidato = CandidatoControlador()
+ControladorPartido = PartidoControlador()
+ControladorMesa = MesaControlador()
+
 """RUTAS DE ADMIN --> CANDIDATO"""
 
 """LISTAR CANDIDATOS (GET)"""
 @app.route("/candidato",methods=['GET'])
 def getCandidatos():
-    json=CandidatoControlador.get()
+    json=ControladorCandidato.getCandidato()
     return jsonify(json)
 
 """CREAR UN CANDIDATO - (POST)"""
 @app.route("/candidato",methods=['POST'])
 def createCandidato():
     dataEntrada = request.get_json()
-    dataSalida=CandidatoControlador.create(dataEntrada)
+    dataSalida=ControladorCandidato.createCandidato(dataEntrada)
     return jsonify(dataSalida)
 
 """ELIMINAAR UN CANDIDATO - (DELETE)"""
 @app.route("/candidato/<string:id>",methods=['DELETE'])
 def deleteCandidato(id):
-    json=CandidatoControlador.delete(id)
+    json=ControladorCandidato.deleteCandidato(id)
     return jsonify(json)
 
 """ACTUALIZAR UN CANDIDATO - (PUT)"""
-@app.route("/candidatos/<string:id>", methods=['PUT'])
+@app.route("/candidato/<string:id>", methods=['PUT'])
 def actualizarCandidato(id):
     data = request.get_json()
-    json = CandidatoControlador.update(id, data)
-    return jsonify(json)
-
-"""BUSCAR CANDIDADTO - (GET)"""
-@app.route("/candidatos/<string:id>", methods=['GET'])
-def buscarCandidato(id):
-    json = CandidatoControlador.find(id)
+    json = ControladorCandidato.updateCandidato(id, data)
     return jsonify(json)
 
 """ASIGNAR PARTIDO A UN CANDIDATO - (PUT)"""
 @app.route("/candidato/<string:id>/partido/<string:id_partido>", methods=['PUT'])
 def asignarPartido(id, id_partido):
-    json = CandidatoControlador.asignarPartido(id, id_partido)
+    json = ControladorCandidato.asignarPartido(id, id_partido)
     return jsonify(json)
 
 
@@ -98,12 +96,6 @@ def createMesa():
 def actualizarMesa(id):
     data = request.get_json()
     json = MesaControlador.update(id, data)
-    return jsonify(json)
-
-"""BUSCAR MESA - (GET)"""
-@app.route("/mesa/<string:id>", methods=['GET'])
-def buscarMesa(id):
-    json = MesaControlador.find(id)
     return jsonify(json)
 
 """ELIMINAAR UN MESA - (DELETE)"""
