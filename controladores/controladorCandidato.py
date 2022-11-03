@@ -10,7 +10,7 @@ class CandidatoControlador():
         self.repo_partido = RepositorioPartido()
         self.repo_candidato = RepositorioCandidato()
         
-    """RELACION UNO A MUCHOS --> PARTIDO --> CANDIDATO"""  
+    """RELACION UNO A MUCHOS: PARTIDO-CANDIDATO"""  
     def asignarPartido(self, id, id_partido):
         candidato_actual = Candidato(self.repo_candidato.findById(id))
         partido_actual = Partido(self.repo_partido.findById(id_partido))
@@ -29,9 +29,10 @@ class CandidatoControlador():
     def updateCandidato(self, id, datosCandidato):
         buscar_candiadto = self.repo_candidato.findById(id)
         candidato = Candidato(buscar_candiadto)
-        candidato.numero_resolucion = datosCandidato["numero_resolucion"]
         candidato.cedula = datosCandidato["cedula"]
+        candidato.numero_resolucion = datosCandidato["numero_resolucion"]
         candidato.nombre = datosCandidato["nombre"]
+        candidato.apellido = datosCandidato["apellido"]
         self.repo_candidato.save(candidato)
         return candidato.__dict__
         
