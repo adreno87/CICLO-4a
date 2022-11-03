@@ -4,103 +4,112 @@ from flask import request
 from flask_cors import CORS
 import json
 from waitress import serve
-from controladores.controladorCandidato import ControladorCandidato
+from controladores.controladorCandidato import CandidatoControlador
 from controladores.controladorPartido import PartidoControlador
-from controladores.controladorMesa import ControladorMesa
+from controladores.controladorMesa import MesaControlador
 
-app = Flask(__name__) #instancia de la clase Flask
+app = Flask(__name__) 
 cors = CORS(app)
 
-"""RUTAS DE API (PATH)"""
+"""RUTAS DE ADMIN --> CANDIDATO"""
 
-#PATH CANDIDATOS -listar
-_controlador_candidato = ControladorCandidato()
-ControladorPartido = PartidoControlador()
+"""LISTAR CANDIDATOS (GET)"""
+@app.route("/candidato",methods=['GET'])
+def getCandidatos():
+    json=CandidatoControlador.get()
+    return jsonify(json)
 
-@app.route("/candidatos", methods=["GET"])
-def get_candidatos():
-    datos = _controlador_candidato.getCandidato()
-    return jsonify(datos)
+"""CREAR UN CANDIDATO - (POST)"""
+@app.route("/candidato",methods=['POST'])
+def createCandidato():
+    dataEntrada = request.get_json()
+    dataSalida=CandidatoControlador.create(dataEntrada)
+    return jsonify(dataSalida)
 
-#PATH CANDIDATOS -Eliminar
-@app.route("/candidatos/<string:id>", methods=["DELETE"])
-def delete_candidato(id):
-    datos = _controlador_candidato.deleteCandidato(id)
-    return jsonify(datos)
+"""ELIMINAAR UN CANDIDATO - (DELETE)"""
+@app.route("/candidato/<string:id>",methods=['DELETE'])
+def deleteCandidato(id):
+    json=CandidatoControlador.delete(id)
+    return jsonify(json)
 
-#PATH CANDIDATOS -Crear
-@app.route("/candidatos", methods=["POST"])
-def create_candidato():
-    datosEntrada = request.get_json()
-    datosSalida = _controlador_candidato.createCandidato(datosEntrada)
-    return jsonify(datosSalida)
-
-#PATH CANDIDATOS -Actualizar
-@app.route("/candidatos/<string:id>", methods=["PUT"])
-def modificarCandidato(id):
+"""ACTUALIZAR UN CANDIDATO - (PUT)"""
+@app.route("/candidatos/<string:id>", methods=['PUT'])
+def actualizarCandidato(id):
     data = request.get_json()
-    json = ControladorCandidato.updateCandidato(id,data)
+    json = CandidatoControlador.update(id, data)
+    return jsonify(json)
+
+"""BUSCAR CANDIDADTO - (GET)"""
+@app.route("/candidatos/<string:id>", methods=['GET'])
+def buscarCandidato(id):
+    json = CandidatoControlador.find(id)
+    return jsonify(json)
+
+"""ASIGNAR PARTIDO A UN CANDIDATO - (PUT)"""
+@app.route("/candidato/<string:id>/partido/<string:id_partido>", methods=['PUT'])
+def asignarPartido(id, id_partido):
+    json = CandidatoControlador.asignarPartido(id, id_partido)
     return jsonify(json)
 
 
 """LISTAR PARTIDOS (GET)"""
 @app.route("/partido",methods=['GET'])
 def getPartidos():
-    json=ControladorPartido.getPartido()
+    json=PartidoControlador.getPartido()
     return jsonify(json)
 
 """CREAR UN PARTIDO - (POST)"""
 @app.route("/partido",methods=['POST'])
 def createPartido():
     dataEntrada = request.get_json()
-    dataSalida=ControladorPartido.createPartido(dataEntrada)
+    dataSalida=PartidoControlador.createPartido(dataEntrada)
     return jsonify(dataSalida)
 
 """ELIMINAAR UN PARTIDO - (DELETE)"""
 @app.route("/partido/<string:id>",methods=['DELETE'])
 def deletePartido(id):
-    json=ControladorPartido.deletePartido(id)
+    json=PartidoControlador.deletePartido(id)
     return jsonify(json)
 
 """ACTUALIZAR UN PARTIDO - (PUT)"""
 @app.route("/partido/<string:id>", methods=['PUT'])
 def actualizarPartido(id):
     data = request.get_json()
-    json = ControladorPartido.updatePartido(id, data)
+    json = PartidoControlador.updatePartido(id, data)
     return jsonify(json)
 
-    #PATH MESA -Actualizar
-@app.route("/mesas/<string:id>", methods=["PUT"])
-def modificarMesa(id):
-    data = request.get_json()
-    json = ControladorMesa.updateMesa(id,data)
-    return jsonify(json)
+#PATH MESA
 
-
-"""LISTAR MESA (GET)"""
+"""LISTAR MESAS (GET)"""
 @app.route("/mesa",methods=['GET'])
-def getPartidos():
-    json=ControladorMesa.getMesa()
+def getMesa():
+    json=MesaControlador.get()
     return jsonify(json)
 
-"""CREAR UNA MESA - (POST)"""
+"""CREAR UN MESA - (POST)"""
 @app.route("/mesa",methods=['POST'])
 def createMesa():
     dataEntrada = request.get_json()
-    dataSalida=ControladorMesa.createMesa(dataEntrada)
+    dataSalida=MesaControlador.create(dataEntrada)
     return jsonify(dataSalida)
 
-"""ELIMINAAR UNA MESA - (DELETE)"""
-@app.route("/mesa/<string:id>",methods=['DELETE'])
-def deleteMesa(id):
-    json=ControladorMesa.deleteMesa(id)
-    return jsonify(json)
-
-"""ACTUALIZAR UNA MESA - (PUT)"""
+"""ACTUALIZAR UN MESA - (PUT)"""
 @app.route("/mesa/<string:id>", methods=['PUT'])
 def actualizarMesa(id):
     data = request.get_json()
-    json = ControladorMesa.updateMesa(id, data)
+    json = MesaControlador.update(id, data)
+    return jsonify(json)
+
+"""BUSCAR MESA - (GET)"""
+@app.route("/mesa/<string:id>", methods=['GET'])
+def buscarMesa(id):
+    json = MesaControlador.find(id)
+    return jsonify(json)
+
+"""ELIMINAAR UN MESA - (DELETE)"""
+@app.route("/mesa/<string:id>",methods=['DELETE'])
+def deleteMesa(id):
+    json=MesaControlador.delete(id)
     return jsonify(json)
 
 
