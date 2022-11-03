@@ -53,27 +53,27 @@ def asignarPartido(id, id_partido):
 """LISTAR PARTIDOS (GET)"""
 @app.route("/partido",methods=['GET'])
 def getPartidos():
-    json=PartidoControlador.getPartido()
+    json=ControladorPartido.getPartido()
     return jsonify(json)
 
 """CREAR UN PARTIDO - (POST)"""
 @app.route("/partido",methods=['POST'])
 def createPartido():
     dataEntrada = request.get_json()
-    dataSalida=PartidoControlador.createPartido(dataEntrada)
+    dataSalida=ControladorPartido.createPartido(dataEntrada)
     return jsonify(dataSalida)
 
 """ELIMINAAR UN PARTIDO - (DELETE)"""
 @app.route("/partido/<string:id>",methods=['DELETE'])
 def deletePartido(id):
-    json=PartidoControlador.deletePartido(id)
+    json=ControladorPartido.deletePartido(id)
     return jsonify(json)
 
 """ACTUALIZAR UN PARTIDO - (PUT)"""
 @app.route("/partido/<string:id>", methods=['PUT'])
 def actualizarPartido(id):
     data = request.get_json()
-    json = PartidoControlador.updatePartido(id, data)
+    json = ControladorPartido.updatePartido(id, data)
     return jsonify(json)
 
 #PATH MESA
@@ -81,27 +81,27 @@ def actualizarPartido(id):
 """LISTAR MESAS (GET)"""
 @app.route("/mesa",methods=['GET'])
 def getMesa():
-    json=MesaControlador.get()
+    json=ControladorMesa.get()
     return jsonify(json)
 
 """CREAR UN MESA - (POST)"""
 @app.route("/mesa",methods=['POST'])
 def createMesa():
     dataEntrada = request.get_json()
-    dataSalida=MesaControlador.create(dataEntrada)
+    dataSalida=ControladorMesa.create(dataEntrada)
     return jsonify(dataSalida)
 
 """ACTUALIZAR UN MESA - (PUT)"""
 @app.route("/mesa/<string:id>", methods=['PUT'])
 def actualizarMesa(id):
     data = request.get_json()
-    json = MesaControlador.update(id, data)
+    json = ControladorMesa.update(id, data)
     return jsonify(json)
 
 """ELIMINAAR UN MESA - (DELETE)"""
 @app.route("/mesa/<string:id>",methods=['DELETE'])
 def deleteMesa(id):
-    json=MesaControlador.delete(id)
+    json=ControladorMesa.delete(id)
     return jsonify(json)
 
 
