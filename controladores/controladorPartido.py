@@ -19,7 +19,7 @@ class PartidoControlador():
     def updatePartido(self, id, datosPartido):
         buscar_partido = self.repo_partido.findById(id)
         partido = Partido(buscar_partido)
-        partido.name = datosPartido["name"]
+        partido.nombre = datosPartido["nombre"]
         partido.lema = datosPartido["lema"]
         self.repo_partido.save(partido)
         return partido.__dict__
