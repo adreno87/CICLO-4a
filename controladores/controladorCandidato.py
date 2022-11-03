@@ -26,11 +26,6 @@ class CandidatoControlador():
         datos_salida = self.repo_candidato.save(candidato)
         return datos_salida
     
-    def find(self, id):
-        buscar_candiadto = self.repo_candidato.findById(id)
-        candidato = Candidato(buscar_candiadto)
-        return candidato.__dict__
-    
     def update(self, id, datosCandidato):
         buscar_candiadto = self.repo_candidato.findById(id)
         candidato = Candidato(buscar_candiadto)

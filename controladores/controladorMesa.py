@@ -22,11 +22,7 @@ class MesaControlador():
         mesa.numero_mesa = datosMesa["numero_mesa"]
         mesa.cedulas_inscritas = datosMesa["cedulas_inscritas"]
         self.mesa_repo.save(mesa)
-        return mesa.__dict__
-    
-    def find(self, id):
-        mesa = self.mesa_repo.findById(id) 
-        return mesa.__dict__    
+        return mesa.__dict__ 
         
     def delete(self, id):
         print("Mesa " + id + " eliminada")
