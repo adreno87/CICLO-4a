@@ -7,6 +7,7 @@ from waitress import serve
 from controladores.controladorCandidato import CandidatoControlador
 from controladores.controladorPartido import PartidoControlador
 from controladores.controladorMesa import MesaControlador
+from controladores.controladorResultados import ResultadosControlador
 
 app = Flask(__name__) 
 cors = CORS(app)
@@ -14,8 +15,9 @@ cors = CORS(app)
 ControladorCandidato = CandidatoControlador()
 ControladorPartido = PartidoControlador()
 ControladorMesa = MesaControlador()
+ControladorResultados = ResultadosControlador()
 
-"""RUTAS DE ADMIN --> CANDIDATO"""
+#RUTAS DE ADMIN --> CANDIDATO
 
 """LISTAR CANDIDATOS (GET)"""
 @app.route("/candidato",methods=['GET'])
@@ -49,6 +51,7 @@ def asignarPartido(id, id_partido):
     json = ControladorCandidato.asignarPartido(id, id_partido)
     return jsonify(json)
 
+#RUTAS DE ADMIN --> PARTIDO
 
 """LISTAR PARTIDOS (GET)"""
 @app.route("/partido",methods=['GET'])
@@ -76,7 +79,7 @@ def actualizarPartido(id):
     json = ControladorPartido.updatePartido(id, data)
     return jsonify(json)
 
-#PATH MESA
+#RUTAS DE ADMIN --> MESA
 
 """LISTAR MESAS (GET)"""
 @app.route("/mesa",methods=['GET'])
@@ -104,8 +107,33 @@ def deleteMesa(id):
     json=ControladorMesa.delete(id)
     return jsonify(json)
 
+#RUTAS DE ADMIN --> RESULTADOS
 
+"""LISTAR RESULTADOS (GET)"""
+@app.route("/resultados", methods=["GET"])
+def get_resultados():
+    datos = ControladorResultados.getResultados()
+    return jsonify(datos)
 
+"""CREAR UN RESULTADO - (POST)"""
+@app.route("/resultados", methods=["POST"])
+def create_resultados():
+    datos_entrada = request.get_json()
+    datos_salida = ControladorResultados.createResultados(datos_entrada)
+    return jsonify(datos_salida)
+
+"""ACTUALIZAR UN RESULTADO - (PUT)"""
+@app.route("/resultados/<string:id>", methods=["PUT"])
+def actualizarResultados(id):
+    data = request.get_json()
+    json = ControladorResultados.updateResultados(id,data)
+    return jsonify(json)
+
+"""ELIMINAR UN RESULTADO - (DELETE)"""
+@app.route("/resultados/<string:id>", methods=["DELETE"])
+def deleteResultado(id):
+    datos = controladorResultados.deleteResultados(id)
+    return jsonify(datos)
 
 
 
