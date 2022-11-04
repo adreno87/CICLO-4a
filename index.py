@@ -84,27 +84,27 @@ def actualizarPartido(id):
 """LISTAR MESAS (GET)"""
 @app.route("/mesa",methods=['GET'])
 def getMesa():
-    json=ControladorMesa.get()
+    json=ControladorMesa.getMesa()
     return jsonify(json)
 
 """CREAR UN MESA - (POST)"""
 @app.route("/mesa",methods=['POST'])
 def createMesa():
     dataEntrada = request.get_json()
-    dataSalida=ControladorMesa.create(dataEntrada)
+    dataSalida=ControladorMesa.createMesa(dataEntrada)
     return jsonify(dataSalida)
 
 """ACTUALIZAR UN MESA - (PUT)"""
 @app.route("/mesa/<string:id>", methods=['PUT'])
 def actualizarMesa(id):
     data = request.get_json()
-    json = ControladorMesa.update(id, data)
+    json = ControladorMesa.updateMesa(id, data)
     return jsonify(json)
 
 """ELIMINAAR UN MESA - (DELETE)"""
 @app.route("/mesa/<string:id>",methods=['DELETE'])
 def deleteMesa(id):
-    json=ControladorMesa.delete(id)
+    json=ControladorMesa.deleteMesa(id)
     return jsonify(json)
 
 #RUTAS DE ADMIN --> RESULTADOS
