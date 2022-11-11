@@ -1,6 +1,8 @@
 package seguridad.microservicioseguridad.Controladores;
 
 import seguridad.microservicioseguridad.Modelos.Usuario;
+import seguridad.microservicioseguridad.Modelos.Rol;
+import seguridad.microservicioseguridad.Repositorios.RepositorioRol;
 import seguridad.microservicioseguridad.Repositorios.RepositorioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,8 +17,12 @@ import java.security.NoSuchAlgorithmException;
 
 public class ControladorUsuario {
 
+
+
     @Autowired
     private RepositorioUsuario miRepositorioUsuario;
+    @Autowired
+    private RepositorioRol miRepositorioRol;
     @GetMapping("")
     public List<Usuario> index(){
         return this.miRepositorioUsuario.findAll();
@@ -76,4 +82,22 @@ public class ControladorUsuario {
         }
         return sb.toString();
     }
+    /**
+     * Relación (1 a n) entre rol y usuario
+     * @param id
+     * @param id_rol
+     * @return
+     */
+    @PutMapping("{id}/rol/{id_rol}")
+    public Usuario asignarRolAUsuario(@PathVariable String id,@PathVariable
+    String id_rol){
+        Usuario
+                usuarioActual=this.miRepositorioUsuario.findById(id).orElseThrow(RuntimeException::new);
+        Rol
+                rolActual=this.miRepositorioRol.findById(id_rol).orElseThrow(RuntimeException::new);
+        usuarioActual.setRol(rolActual);
+        return this.miRepositorioUsuario.save(usuarioActual);
+    }
+
+
 }
