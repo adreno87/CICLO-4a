@@ -20,7 +20,7 @@ jwt = JWTManager(app)
 def create_token():
     data = request.get_json()
     headers = {"Content-Type": "application/json; charset=utf-8"}
-    url=dataConfig["url-backend-security"]+'/usarios/validar'
+    url=dataConfig["url-backend-seguridad"]+'/usuarios/validar'
     response = requests.post(url, json=data, headers=headers)
     if response.status_code == 200:
         user = response.json()
