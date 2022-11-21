@@ -18,7 +18,7 @@ class ResultadosControlador():
     
     def updateResultados(self, id, datosResultados):
         buscar_resultado = self.repo_resultados.findById(id)
-        resultado = Resultado(buscar_resultado)
+        resultado = Resultados(buscar_resultado)
         resultado.totalVotos = datosResultados["total_votos"]
         resultado.ganador = datosResultados["ganador"]
         self.repo_resultados.save(resultado)

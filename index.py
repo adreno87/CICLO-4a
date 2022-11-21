@@ -132,7 +132,7 @@ def actualizarResultados(id):
 """ELIMINAR UN RESULTADO - (DELETE)"""
 @app.route("/resultados/<string:id>", methods=["DELETE"])
 def deleteResultado(id):
-    datos = controladorResultados.deleteResultados(id)
+    datos = ControladorResultados.deleteResultados(id)
     return jsonify(datos)
 
 
