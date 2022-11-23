@@ -14,6 +14,8 @@ from flask_jwt_extended import create_access_token, verify_jwt_in_request
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
+
+
 app.config["JWT_SECRET_KEY"]="superr-secretoo"
 jwt = JWTManager(app)
 @app.route("/login", methods=["POST"])
@@ -29,6 +31,57 @@ def create_token():
         return jsonify({"token": access_token, "user_id": user["_id"]})
     else:
         return jsonify({"msg": "usuario o contraseña incorrecto"}), 401
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @app.route("/",methods=['GET'])
 def test():
