@@ -160,7 +160,44 @@ def delete_partidos(id):
     json = response.json()
     return jsonify(json)
 
-
+@app.route("/usuario",methods=['GET'])
+def get_usuario():
+    headers = {"Content-Type": "application/json; charset=utf-8"}
+    url = dataConfig["url-backend-resultados"] + '/usuario'
+    response = requests.get(url, headers=headers)
+    json = response.json()
+    print(url)
+    return jsonify(json)
+@app.route("/usuario",methods=['POST'])
+def create_usuario():
+    data = request.get_json()
+    headers = {"Content-Type": "application/json; charset=utf-8"}
+    url = dataConfig["url-backend-resultados"] + '/usuario'
+    response = requests.post(url, headers=headers,json=data)
+    json = response.json()
+    return jsonify(json)
+@app.route("/usuario/<string:id>",methods=['GET'])
+def getUsuario(id):
+    headers = {"Content-Type": "application/json; charset=utf-8"}
+    url = dataConfig["url-backend-resultados"] + '/usuario/'+id
+    response = requests.get(url, headers=headers)
+    json = response.json()
+    return jsonify(json)
+@app.route("/usuario/<string:id>",methods=['PUT'])
+def update_usuario(id):
+    data = request.get_json()
+    headers = {"Content-Type": "application/json; charset=utf-8"}
+    url = dataConfig["url-backend-resultados"] + '/usuario/'+id
+    response = requests.put(url, headers=headers, json=data)
+    json = response.json()
+    return jsonify(json)
+@app.route("/partidos/<string:id>",methods=['DELETE'])
+def delete_usuario(id):
+    headers = {"Content-Type": "application/json; charset=utf-8"}
+    url = dataConfig["url-backend-resultados"] + '/usuario/' + id
+    response = requests.delete(url, headers=headers)
+    json = response.json()
+    return jsonify(json)
 
 
 
